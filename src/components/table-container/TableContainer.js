@@ -4,12 +4,12 @@ import Table from "../table/Table";
 
 function TableContainer() {
   const [people, setPeople] = useState([]);
-  
-  // const PostTable = () => {
+  const [tot, setTot] = useState('');
+
     useEffect(() => {
       axios.get("people/").then(function (response) {
         setPeople(response.data.results);
-        // console.log(response.data.results)
+        setTot(response.data.count)
       })
       .catch((error) => {
         if(error.response){
@@ -17,29 +17,15 @@ function TableContainer() {
         }
       })
     }, []);
-  // }
-    // const Search = () => {
-      // const [search, setSearch] = useState([]);
-      // const handleSearch = (e) => {
-      //   setSearch(e.target.value)
-      // };
-    // }
-    // const peopleData = {
-    //   people: people.filter((item) => 
-    //   item.name.toLowerCase().includes(search.toLowerCase())),      
-    // };
     return (<div> <h1>Star Wars Table</h1>
-        {/* {console.log(typeof(people))} */}
-        <label htmlFor="search">Search: <span></span>
-        <input id = "search" type="text" />
-        </label>
+        <h2>total count {tot}</h2>
+        
         {
-          people == ""?
+          people === ""?
           <i className="fa fa-exclamation-circle" aria-hidden="true"></i>
           :
           <Table 
           people = {people} 
-          // {...console.log(peopleData)}
           ></Table>
         }
     </div>            
